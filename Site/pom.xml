@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.tortuousroad</groupId>
-        <artifactId>groupon</artifactId>
+        <groupId>com.zoy.computer.science</groupId>
+        <artifactId>zoy-in-action-group-buy-by-spring-in-mooc</artifactId>
         <version>1.0</version>
     </parent>
 
@@ -24,7 +24,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.tortuousroad</groupId>
+                <groupId>com.zoy.computer.science</groupId>
                 <artifactId>groupon-site-controller</artifactId>
                 <version>1.0</version>
             </dependency>

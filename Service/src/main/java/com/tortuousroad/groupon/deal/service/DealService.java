@@ -93,22 +93,6 @@ public class DealService {
         return dealDAO.getPageDealsForSearch(name, page, rows);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 查询在购物车显示的商品
      * @param dealIds 商品ID

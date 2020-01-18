@@ -41,5 +41,4 @@ public class IndexCategoryDealDTO {
             this.second = new ArrayList<>();
         }
     }
-
 }

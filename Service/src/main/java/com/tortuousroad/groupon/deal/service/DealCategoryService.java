@@ -66,12 +66,14 @@ public class DealCategoryService {
      * @return
      */
     public List<DealCategory> getCategories() {
-        List<DealCategory> dealCategories = getAllWithoutDeleted();//从缓存或数据库中查询全部
+        // ·从缓存或数据库中查询全部
+        List<DealCategory> dealCategories = getAllWithoutDeleted();
 
-        //JDK8的stream处理,把根分类区分出来
+        // ·一级分类 --》 二级分类，所以需要把 【分类组织起来】，变成有结构的信息
+        //JDK8的stream处理,把【根分类】也就是【一级分类】区分出来
         List<DealCategory> roots = dealCategories.stream().filter(dealCategory -> (dealCategory.getParentId() == 0)).collect(Collectors.toList());
 
-        //对跟分类进行排序
+        //对根分类进行排序
         roots.sort(new Comparator<DealCategory>() {
             @Override
             public int compare(DealCategory o1, DealCategory o2) {
@@ -79,12 +81,34 @@ public class DealCategoryService {
             }
         });
 
+        // ·第二种实现排序的方式
+//        roots.sort((o1,o2) -> o1.getOrderNum() > o2.getOrderNum() ? 1 : -1);
+
         //把非根分类区分出来
         List<DealCategory> subs = dealCategories.stream().filter(dealCategory -> (dealCategory.getParentId() != 0)).collect(Collectors.toList());
 
         //递归构建结构化的分类信息
         roots.forEach(root -> buildSubs(root, subs));
         return roots;
+    }
+
+    /**
+     * 查询所有未删除的商品类别
+     * @return
+     */
+    private List<DealCategory> getAllWithoutDeleted() {
+        // ·从缓存获取全部分类信息
+        List<DealCategory> allCategories = dealCategoryCacheOperator.getAllDealCategories();
+//        CacheUtil.getAllEntities(DealCategory.class);
+        if (allCategories == null || allCategories.size() == 0) {
+            allCategories = dealCategoryDAO.getAllWithoutDeleted();
+            for (DealCategory dealCategory : allCategories) {
+                dealCategoryCacheOperator.putDealCategory(dealCategory);
+//                CacheUtil.putEntity("DealCategory." + dealCategory.getId(), dealCategory);
+//                CacheUtil.putEntity(dealCategory);
+            }
+        }
+        return allCategories;
     }
 
     /**
@@ -99,54 +123,6 @@ public class DealCategoryService {
             children.forEach(child -> buildSubs(child, subs));//再次递归构建
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * 查询所有未删除的商品类别
-     * @return
-     */
-    private List<DealCategory> getAllWithoutDeleted() {
-        List<DealCategory> allCategories = dealCategoryCacheOperator.getAllDealCategories();
-//        CacheUtil.getAllEntities(DealCategory.class);
-        if (allCategories == null || allCategories.size() == 0) {
-            allCategories = dealCategoryDAO.getAllWithoutDeleted();
-            for (DealCategory dealCategory : allCategories) {
-                dealCategoryCacheOperator.putDealCategory(dealCategory);
-//                CacheUtil.putEntity("DealCategory." + dealCategory.getId(), dealCategory);
-//                CacheUtil.putEntity(dealCategory);
-            }
-        }
-        return allCategories;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**

@@ -18,18 +18,21 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ·首页Controller
+ */
 @Controller
 public class IndexController extends BaseSiteController {
 
 	@Autowired private DealService dealService;
 	@Autowired private DealCategoryService categoryService;
 
+	// ·数据如何返回给页面：用 Model
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request) {
 		//1.分类
 		//2.首页商品
 		//3.每个大分类下显示8个商品
-
 		List<DealCategory> categories = categoryService.getCategories();
 		model.addAttribute("categories", categories);
 
@@ -39,9 +42,8 @@ public class IndexController extends BaseSiteController {
 
 		//1.构造一个结构体存放每个分类的8个商品
 		//2.页面循环结构体的集合
-		//3.结构体包含8个商品,1各分类
+		//3.结构体包含8个商品,1个分类
 		//4.8个商品分两组
-
 		List<IndexCategoryDealDTO> indexCategoryDealDTOs = new ArrayList<>();
 		categories.forEach(category -> {
 			List<Deal> deals = dealService.getDealsForIndex(areaId, category.getSelfAndChildrenIds());
