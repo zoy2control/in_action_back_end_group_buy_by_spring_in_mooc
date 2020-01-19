@@ -1,4 +1,4 @@
-
 .idea*
 ImageServer/target*
 Site/Web/target*
+.idea/workspace.xml
