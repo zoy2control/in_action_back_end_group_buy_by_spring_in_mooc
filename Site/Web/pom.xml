@@ -24,7 +24,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.zoy.computer.science</groupId>
+            <groupId>com.tortuousroad</groupId>
             <artifactId>groupon-site-controller</artifactId>
             <version>1.0</version>
         </dependency>

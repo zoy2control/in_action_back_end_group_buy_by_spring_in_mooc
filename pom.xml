@@ -4,8 +4,8 @@
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zoy.computer.science</groupId>
-    <artifactId>zoy-in-action-group-buy-by-spring-in-mooc</artifactId>
+    <groupId>com.tortuousroad</groupId>
+    <artifactId>groupon</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
