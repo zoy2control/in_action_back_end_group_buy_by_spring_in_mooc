@@ -2,3 +2,6 @@
 ImageServer/target*
 Site/Web/target*
 .idea/workspace.xml
+Admin/Controller/target/*
+Admin/Web/target/*
+Alipay/target/*

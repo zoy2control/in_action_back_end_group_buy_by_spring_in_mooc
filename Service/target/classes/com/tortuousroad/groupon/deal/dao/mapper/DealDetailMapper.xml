@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="GBK"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tortuousroad.groupon.deal.entity.DealDetailMapper">
 	<resultMap id="BaseResultMap"
@@ -8,14 +8,14 @@
 		<result column="deal_detail" property="dealDetail" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<!-- 鏌ヨ瀛楁鍒楄〃 -->
+	<!-- 查询字段列表 -->
 	<sql id="Base_Column_List">
 		id,
 		deal_id,
 		deal_detail
 	</sql>
 
-	<!-- 鏍规嵁ID鏌ヨ鍟嗗搧鎻忚堪淇℃伅 -->
+	<!-- 根据ID查询商品描述信息 -->
 	<select id="selectByDealId" resultMap="BaseResultMap"
 			parameterType="java.lang.Long">
 		select
@@ -24,7 +24,7 @@
 		where deal_id = #{dealId,jdbcType=BIGINT}
 	</select>
 
-	<!-- 鏍规嵁ID鏌ヨ鍟嗗搧鎻忚堪淇℃伅 -->
+	<!-- 根据ID查询商品描述信息 -->
 	<select id="selectById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
@@ -33,7 +33,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 
-	<!-- 鏂板鍟嗗搧鎻忚堪 -->
+	<!-- 新增商品描述 -->
 	<insert id="insertDealDetail" parameterType="com.tortuousroad.groupon.deal.entity.DealDetail">
 		insert into deal_detail
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -60,7 +60,7 @@
 		</trim>
 	</insert>
 
-	<!-- 鏇存柊鍟嗗搧鎻忚堪淇℃伅 -->
+	<!-- 更新商品描述信息 -->
 	<update id="updateById" parameterType="com.tortuousroad.groupon.deal.entity.DealDetail">
 		update deal_detail
 		<set>
@@ -71,7 +71,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	
-	<!-- 鍒犻櫎鍟嗗搧鎻忚堪淇℃伅 -->
+	<!-- 删除商品描述信息 -->
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from
 		deal_detail

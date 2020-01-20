@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="GBK"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tortuousroad.groupon.deal.entity.DealMapper">
 	<resultMap id="BaseResultMap" type="com.tortuousroad.groupon.deal.entity.Deal">
@@ -34,7 +34,7 @@
 		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
 	</resultMap>
 
-	<!-- æŸ¥è¯¢å­—æ®µåˆ—è¡¨ -->
+	<!-- ²éÑ¯×Ö¶ÎÁÐ±í -->
 	<sql id="Base_Column_List">
 		id, area_id, area_name, sku_id, deal_class, merchant_id, merchant_sku, deal_title, deal_price, merchant_price,
 		market_price, settlement_price_max, settlement_price, discount, bonus_points, deal_type, image_id, deal_level,
@@ -42,7 +42,7 @@
 		publish_time, merchant_code, create_time, update_time, category_id
 	</sql>
 
-	<!-- æœç´¢åˆ†é¡µæŸ¥è¯¢å•†å“ -->
+	<!-- ËÑË÷·ÖÒ³²éÑ¯ÉÌÆ· -->
 	<select id="selectPageDealsForSearch" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -57,7 +57,7 @@
 		order by create_time desc
 	</select>
 
-	<!-- åˆ†é¡µæŸ¥è¯¢å•†å“ -->
+	<!-- ·ÖÒ³²éÑ¯ÉÌÆ· -->
 	<select id="selectPageDeals" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -164,7 +164,7 @@
 		order by create_time desc
 	</select>
 
-	<!-- åˆ†é¡µæŸ¥è¯¢å•†å“è®°å½•æ•° -->
+	<!-- ·ÖÒ³²éÑ¯ÉÌÆ·¼ÇÂ¼Êý -->
 	<select id="countPageDeals" resultType="java.lang.Long">
 		SELECT count(*) FROM deal
 		where 1 = 1
@@ -268,7 +268,7 @@
 		order by create_time desc
 	</select>
 
-	<!-- ä¿®æ”¹å•†å“çŠ¶æ€ -->
+	<!-- ÐÞ¸ÄÉÌÆ·×´Ì¬ -->
 	<update id="modifyStatusById" parameterType="java.util.Map">
 		update deal set
 		publish_status = #{publishStatus},
@@ -280,7 +280,7 @@
 		where id = #{id}
 	</update>
 	
-	<!-- ä¿®æ”¹å•†å“å·²å–å…‰çŠ¶æ€ -->
+	<!-- ÐÞ¸ÄÉÌÆ·ÒÑÂô¹â×´Ì¬ -->
     <update id="modifyOosStatusById" parameterType="java.util.Map">
         update deal set
         oos_status = #{oosStatus},publish_time = #{publishTime},update_time = #{updateTime} 
@@ -288,7 +288,7 @@
         #{id}
     </update>
 	   
-    <!-- æ ¹æ®SkuIdæŸ¥è¯¢å•†å“ä¿¡æ¯ -->
+    <!-- ¸ù¾ÝSkuId²éÑ¯ÉÌÆ·ÐÅÏ¢ -->
     <select id="selectBySkuId" resultMap="BaseResultMap"
         parameterType="java.lang.Long">
         select
@@ -297,7 +297,7 @@
         where sku_id = #{skuId,jdbcType=BIGINT}
     </select>
 
-	<!-- æ ¹æ®SkuIdæŸ¥è¯¢å•†å“ä¿¡æ¯ -->
+	<!-- ¸ù¾ÝSkuId²éÑ¯ÉÌÆ·ÐÅÏ¢ -->
 	<select id="selectBySkuIds" resultMap="BaseResultMap" parameterType="java.util.List">
 		select
 		<include refid="Base_Column_List" />
@@ -310,7 +310,7 @@
 		</if>
 	</select>
 
-	<!-- æ ¹æ®SkuIdæŸ¥è¯¢å•†å“ID -->
+	<!-- ¸ù¾ÝSkuId²éÑ¯ÉÌÆ·ID -->
 	<select id="selectIdBySkuId" resultType="java.lang.Long"
 			parameterType="java.lang.Long">
 		select
@@ -319,7 +319,7 @@
 		where sku_id = #{skuId,jdbcType=BIGINT}
 	</select>
 	   
-    <!-- æ ¹æ®ç±»åˆ«æŸ¥è¯¢å•†å“ä¿¡æ¯ -->
+    <!-- ¸ù¾ÝÀà±ð²éÑ¯ÉÌÆ·ÐÅÏ¢ -->
     <select id="selectByCategoryId" resultMap="BaseResultMap"
         parameterType="java.lang.Long">
         select
@@ -328,19 +328,19 @@
         where category_id = #{categoryId,jdbcType=BIGINT}
     </select>
 	   
-    <!-- æ ¹æ®ç±»åˆ«æŸ¥è¯¢å•†å“ä¿¡æ¯æ•°é‡ -->
+    <!-- ¸ù¾ÝÀà±ð²éÑ¯ÉÌÆ·ÐÅÏ¢ÊýÁ¿ -->
     <select id="countByCategoryId" resultType="java.lang.Long" parameterType="java.lang.Long">
         select count(*)
         from deal
         where category_id = #{categoryId,jdbcType=BIGINT}
     </select>
     
-    <!-- æŸ¥è¯¢å½“å‰æœ€å¤§SkuId -->
+    <!-- ²éÑ¯µ±Ç°×î´óSkuId -->
     <select id="selectMaxSkuId" resultMap="BaseResultMap">
         select MAX(sku_id) as sku_id from deal
     </select>
 
-	<!-- æ ¹æ®äº§å“ç¼–ç æŸ¥è¯¢å•†å“ä¿¡æ¯ -->
+	<!-- ¸ù¾Ý²úÆ·±àÂë²éÑ¯ÉÌÆ·ÐÅÏ¢ -->
 	<select id="selectByMerchantCode" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -348,7 +348,7 @@
 		where merchant_code = #{merchantCode,jdbcType=INTEGER}
 	</select>
     
-    <!-- æ ¹æ®å•†å®¶IDå’Œå•†å®¶SkuæŸ¥è¯¢å•†å“ä¿¡æ¯ -->
+    <!-- ¸ù¾ÝÉÌ¼ÒIDºÍÉÌ¼ÒSku²éÑ¯ÉÌÆ·ÐÅÏ¢ -->
     <select id="selectByMerchantIdAndMerchantSku" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List" />
@@ -356,7 +356,7 @@
         where merchant_id = #{merchantId,jdbcType=INTEGER} and merchant_sku = #{merchantSku,jdbcType=BIGINT}
     </select>
 
-	<!-- æ–°å¢žå•†å“ -->
+	<!-- ÐÂÔöÉÌÆ· -->
 	<insert id="insertDeal" parameterType="com.tortuousroad.groupon.deal.entity.Deal" useGeneratedKeys="true" keyProperty="id">
 		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -548,7 +548,7 @@
 		</trim>
 	</insert>
 
-	<!-- æ›´æ–°å•†å“ä¿¡æ¯ -->
+	<!-- ¸üÐÂÉÌÆ·ÐÅÏ¢ -->
 	<update id="updateById" parameterType="com.tortuousroad.groupon.deal.entity.Deal">
 		update deal
 		<set>
@@ -653,7 +653,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	
-	<!-- æŸ¥è¯¢æœ€æ–°å‘å¸ƒçš„å•†å“ -->
+	<!-- ²éÑ¯×îÐÂ·¢²¼µÄÉÌÆ· -->
 	<select id="selectLatestPublishedDeal" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select
@@ -665,7 +665,7 @@
 		order by publish_time desc limit 1
 	</select>
 	
-	<!-- æ ¹æ®skuIdæŸ¥è¯¢å¯ä»¥æ˜¾ç¤ºåœ¨å‰å°çš„å•†å“ -->
+	<!-- ¸ù¾ÝskuId²éÑ¯¿ÉÒÔÏÔÊ¾ÔÚÇ°Ì¨µÄÉÌÆ· -->
 	<select id="selectBySkuIdForShowOnView" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select
@@ -675,7 +675,7 @@
 		and end_time &gt;= #{nowTime,jdbcType=TIMESTAMP}
 	</select>
 	
-	<!-- æŸ¥è¯¢åœ¨é¦–é¡µæ˜¾ç¤ºçš„å•†å“åˆ—è¡¨ -->
+	<!-- ²éÑ¯ÔÚÊ×Ò³ÏÔÊ¾µÄÉÌÆ·ÁÐ±í -->
 	<select id="selectDealsForIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -692,7 +692,7 @@
 		order by deal_level desc
 	</select>
 
-	<!-- æŸ¥è¯¢åœ¨è´­ç‰©è½¦æ˜¾ç¤ºçš„å•†å“ -->
+	<!-- ²éÑ¯ÔÚ¹ºÎï³µÏÔÊ¾µÄÉÌÆ· -->
 	<select id="selectDealsForCart" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -707,7 +707,7 @@
 		order by deal_level desc
 	</select>
 
-	<!-- æŸ¥è¯¢å•†å“ï¼ˆä¸‹å•ï¼‰ -->
+	<!-- ²éÑ¯ÉÌÆ·£¨ÏÂµ¥£© -->
 	<select id="selectForPlaceOrder" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select
@@ -725,7 +725,7 @@
 		and publish_status = 3
 	</select>
 	
-	<!-- ä¸‹å•å‡åº“å­˜ -->
+	<!-- ÏÂµ¥¼õ¿â´æ -->
 	<update id="updateForPlaceOrder" parameterType="java.util.Map">
 		update deal
 		set
@@ -738,7 +738,7 @@
 		and publish_status = 3
 	</update>
 	
-	<!-- åˆ†é¡µæŸ¥è¯¢æŸä¸ªç±»åˆ«ä¸‹çš„å•†å“ -->
+	<!-- ·ÖÒ³²éÑ¯Ä³¸öÀà±ðÏÂµÄÉÌÆ· -->
 	<select id="selectDealsOfCategories" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />

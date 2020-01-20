@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="GBK"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tortuousroad.groupon.deal.entity.DealMapper">
 	<resultMap id="BaseResultMap" type="com.tortuousroad.groupon.deal.entity.Deal">
@@ -34,7 +34,7 @@
 		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
 	</resultMap>
 
-	<!-- 鏌ヨ瀛楁鍒楄〃 -->
+	<!-- 查询字段列表 -->
 	<sql id="Base_Column_List">
 		id, area_id, area_name, sku_id, deal_class, merchant_id, merchant_sku, deal_title, deal_price, merchant_price,
 		market_price, settlement_price_max, settlement_price, discount, bonus_points, deal_type, image_id, deal_level,
@@ -42,7 +42,7 @@
 		publish_time, merchant_code, create_time, update_time, category_id
 	</sql>
 
-	<!-- 鎼滅储鍒嗛〉鏌ヨ鍟嗗搧 -->
+	<!-- 搜索分页查询商品 -->
 	<select id="selectPageDealsForSearch" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -57,7 +57,7 @@
 		order by create_time desc
 	</select>
 
-	<!-- 鍒嗛〉鏌ヨ鍟嗗搧 -->
+	<!-- 分页查询商品 -->
 	<select id="selectPageDeals" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -164,7 +164,7 @@
 		order by create_time desc
 	</select>
 
-	<!-- 鍒嗛〉鏌ヨ鍟嗗搧璁板綍鏁? -->
+	<!-- 分页查询商品记录数 -->
 	<select id="countPageDeals" resultType="java.lang.Long">
 		SELECT count(*) FROM deal
 		where 1 = 1
@@ -268,7 +268,7 @@
 		order by create_time desc
 	</select>
 
-	<!-- 淇敼鍟嗗搧鐘舵?? -->
+	<!-- 修改商品状态 -->
 	<update id="modifyStatusById" parameterType="java.util.Map">
 		update deal set
 		publish_status = #{publishStatus},
@@ -280,7 +280,7 @@
 		where id = #{id}
 	</update>
 	
-	<!-- 淇敼鍟嗗搧宸插崠鍏夌姸鎬? -->
+	<!-- 修改商品已卖光状态 -->
     <update id="modifyOosStatusById" parameterType="java.util.Map">
         update deal set
         oos_status = #{oosStatus},publish_time = #{publishTime},update_time = #{updateTime} 
@@ -288,7 +288,7 @@
         #{id}
     </update>
 	   
-    <!-- 鏍规嵁SkuId鏌ヨ鍟嗗搧淇℃伅 -->
+    <!-- 根据SkuId查询商品信息 -->
     <select id="selectBySkuId" resultMap="BaseResultMap"
         parameterType="java.lang.Long">
         select
@@ -297,7 +297,7 @@
         where sku_id = #{skuId,jdbcType=BIGINT}
     </select>
 
-	<!-- 鏍规嵁SkuId鏌ヨ鍟嗗搧淇℃伅 -->
+	<!-- 根据SkuId查询商品信息 -->
 	<select id="selectBySkuIds" resultMap="BaseResultMap" parameterType="java.util.List">
 		select
 		<include refid="Base_Column_List" />
@@ -310,7 +310,7 @@
 		</if>
 	</select>
 
-	<!-- 鏍规嵁SkuId鏌ヨ鍟嗗搧ID -->
+	<!-- 根据SkuId查询商品ID -->
 	<select id="selectIdBySkuId" resultType="java.lang.Long"
 			parameterType="java.lang.Long">
 		select
@@ -319,7 +319,7 @@
 		where sku_id = #{skuId,jdbcType=BIGINT}
 	</select>
 	   
-    <!-- 鏍规嵁绫诲埆鏌ヨ鍟嗗搧淇℃伅 -->
+    <!-- 根据类别查询商品信息 -->
     <select id="selectByCategoryId" resultMap="BaseResultMap"
         parameterType="java.lang.Long">
         select
@@ -328,19 +328,19 @@
         where category_id = #{categoryId,jdbcType=BIGINT}
     </select>
 	   
-    <!-- 鏍规嵁绫诲埆鏌ヨ鍟嗗搧淇℃伅鏁伴噺 -->
+    <!-- 根据类别查询商品信息数量 -->
     <select id="countByCategoryId" resultType="java.lang.Long" parameterType="java.lang.Long">
         select count(*)
         from deal
         where category_id = #{categoryId,jdbcType=BIGINT}
     </select>
     
-    <!-- 鏌ヨ褰撳墠鏈?澶kuId -->
+    <!-- 查询当前最大SkuId -->
     <select id="selectMaxSkuId" resultMap="BaseResultMap">
         select MAX(sku_id) as sku_id from deal
     </select>
 
-	<!-- 鏍规嵁浜у搧缂栫爜鏌ヨ鍟嗗搧淇℃伅 -->
+	<!-- 根据产品编码查询商品信息 -->
 	<select id="selectByMerchantCode" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -348,7 +348,7 @@
 		where merchant_code = #{merchantCode,jdbcType=INTEGER}
 	</select>
     
-    <!-- 鏍规嵁鍟嗗ID鍜屽晢瀹禨ku鏌ヨ鍟嗗搧淇℃伅 -->
+    <!-- 根据商家ID和商家Sku查询商品信息 -->
     <select id="selectByMerchantIdAndMerchantSku" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List" />
@@ -356,7 +356,7 @@
         where merchant_id = #{merchantId,jdbcType=INTEGER} and merchant_sku = #{merchantSku,jdbcType=BIGINT}
     </select>
 
-	<!-- 鏂板鍟嗗搧 -->
+	<!-- 新增商品 -->
 	<insert id="insertDeal" parameterType="com.tortuousroad.groupon.deal.entity.Deal" useGeneratedKeys="true" keyProperty="id">
 		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -548,7 +548,7 @@
 		</trim>
 	</insert>
 
-	<!-- 鏇存柊鍟嗗搧淇℃伅 -->
+	<!-- 更新商品信息 -->
 	<update id="updateById" parameterType="com.tortuousroad.groupon.deal.entity.Deal">
 		update deal
 		<set>
@@ -653,7 +653,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	
-	<!-- 鏌ヨ鏈?鏂板彂甯冪殑鍟嗗搧 -->
+	<!-- 查询最新发布的商品 -->
 	<select id="selectLatestPublishedDeal" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select
@@ -665,7 +665,7 @@
 		order by publish_time desc limit 1
 	</select>
 	
-	<!-- 鏍规嵁skuId鏌ヨ鍙互鏄剧ず鍦ㄥ墠鍙扮殑鍟嗗搧 -->
+	<!-- 根据skuId查询可以显示在前台的商品 -->
 	<select id="selectBySkuIdForShowOnView" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select
@@ -675,7 +675,7 @@
 		and end_time &gt;= #{nowTime,jdbcType=TIMESTAMP}
 	</select>
 	
-	<!-- 鏌ヨ鍦ㄩ椤垫樉绀虹殑鍟嗗搧鍒楄〃 -->
+	<!-- 查询在首页显示的商品列表 -->
 	<select id="selectDealsForIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -692,7 +692,7 @@
 		order by deal_level desc
 	</select>
 
-	<!-- 鏌ヨ鍦ㄨ喘鐗╄溅鏄剧ず鐨勫晢鍝? -->
+	<!-- 查询在购物车显示的商品 -->
 	<select id="selectDealsForCart" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -707,7 +707,7 @@
 		order by deal_level desc
 	</select>
 
-	<!-- 鏌ヨ鍟嗗搧锛堜笅鍗曪級 -->
+	<!-- 查询商品（下单） -->
 	<select id="selectForPlaceOrder" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select
@@ -725,7 +725,7 @@
 		and publish_status = 3
 	</select>
 	
-	<!-- 涓嬪崟鍑忓簱瀛? -->
+	<!-- 下单减库存 -->
 	<update id="updateForPlaceOrder" parameterType="java.util.Map">
 		update deal
 		set
@@ -738,7 +738,7 @@
 		and publish_status = 3
 	</update>
 	
-	<!-- 鍒嗛〉鏌ヨ鏌愪釜绫诲埆涓嬬殑鍟嗗搧 -->
+	<!-- 分页查询某个类别下的商品 -->
 	<select id="selectDealsOfCategories" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
