@@ -5,3 +5,4 @@ Site/Web/target*
 Admin/Controller/target/*
 Admin/Web/target/*
 Alipay/target/*
+.idea/workspace.xml
